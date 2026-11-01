@@ -1,0 +1,1 @@
+Place your exported MP4 previews in this folder. See the main README.txt for exact filenames and setup.
