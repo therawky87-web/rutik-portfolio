@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f5f7" />
+  <meta name="description" content="Solanki Rutik — video editor and visual storyteller. Cinematic films, music visuals, commercials and social content." />
+  <title>Solanki Rutik — Video Editor</title>
+  <style>
+    :root {
+      --paper: #f5f5f7; --white: #fff; --ink: #171719; --muted: #73737a;
+      --line: rgba(20,20,24,.12); --dark: #101013; --ease: cubic-bezier(.2,.75,.25,1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .nav { position: sticky; top: 0; z-index: 20; height: 68px; display:flex; align-items:center; justify-content:space-between; padding: 0 max(6vw,24px); background: rgba(245,245,247,.82); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(0,0,0,.05); }
+    .brand { font-size: 19px; font-weight: 750; letter-spacing: -.8px; }
+    .nav-links { display:flex; gap:32px; align-items:center; font-size:13px; color:#45454b; }
+    .nav-links a:hover, .footer-links a:hover { opacity:.55; }
+    .menu-btn { display:none; border:0; background:none; font-size:22px; cursor:pointer; }
+    .hero { min-height: min(790px, calc(100vh - 68px)); padding: 112px max(8vw,24px) 64px; display:flex; flex-direction:column; justify-content:space-between; }
+    .eyebrow { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:650; }
+    h1 { max-width: 1050px; margin:24px 0 22px; font-size:clamp(58px,10.4vw,142px); line-height:.91; letter-spacing:-.085em; font-weight:730; }
+    h1 span { color:#99999f; }
+    .hero-bottom { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-top:58px; }
+    .intro { max-width:410px; font-size:18px; line-height:1.55; color:#5e5e65; }
+    .pill-link { display:inline-flex; align-items:center; gap:18px; padding:15px 20px; border:1px solid #c9c9ce; border-radius:999px; font-size:13px; font-weight:650; transition:background .25s, color .25s, transform .25s; }
+    .pill-link:hover { background:var(--ink); color:white; transform:translateY(-2px); }
+    .arrow { font-size:18px; }
+    .hero-note { font-size:11px; letter-spacing:1.5px; color:#888890; text-transform:uppercase; }
+    .section { padding:105px max(8vw,24px); }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:38px; }
+    .section h2 { margin:12px 0 0; font-size:clamp(36px,5vw,64px); letter-spacing:-.065em; line-height:1; }
+    .section-sub { color:var(--muted); font-size:14px; max-width:300px; line-height:1.6; }
+    .work { background:#fff; }
+    .project-grid { display:grid; grid-template-columns:1fr 1fr; gap:54px 24px; }
+    .project { min-width:0; }
+    .project:nth-child(even) { margin-top:90px; }
+    .project-visual { position:relative; overflow:hidden; aspect-ratio: 16/10; border-radius:5px; background:#17171b; display:flex; align-items:center; justify-content:center; isolation:isolate; }
+    .project-visual::before, .project-visual::after { content:""; position:absolute; inset:0; z-index:-1; }
+    .arrival::before { background: radial-gradient(ellipse at 52% 45%, rgba(210,210,220,.32), transparent 17%), radial-gradient(ellipse at 50% 100%, #25252b, #08080a 65%); }
+    .arrival::after { background:linear-gradient(110deg, transparent 25%, rgba(255,255,255,.1) 50%, transparent 70%); transform:skewX(-18deg) translateX(-30%); }
+    .auto::before { background:radial-gradient(ellipse at 50% 70%, #62636a, transparent 30%), linear-gradient(145deg,#09090b,#25252a 50%,#070709); }
+    .doc::before { background:linear-gradient(135deg,rgba(10,10,10,.1),rgba(0,0,0,.7)), radial-gradient(ellipse at 35% 30%,#9a8e7b,#292723 55%,#080808); }
+    .social::before { background:radial-gradient(ellipse at 70% 20%,#d6c5b3,transparent 24%),linear-gradient(135deg,#161619,#44434a 55%,#101012); }
+    .visual-label { color:rgba(255,255,255,.82); font-size:clamp(25px,4vw,54px); font-weight:750; letter-spacing:-.07em; text-align:center; text-transform:uppercase; padding:20px; text-shadow:0 8px 35px #000; }
+    .play { position:absolute; bottom:18px; right:18px; width:42px; height:42px; border:1px solid rgba(255,255,255,.55); border-radius:50%; display:grid; place-items:center; color:white; font-size:13px; }
+    .project-meta { display:flex; justify-content:space-between; gap:16px; align-items:baseline; margin-top:17px; }
+    .project-title { font-size:23px; font-weight:680; letter-spacing:-.7px; }
+    .project-type { font-size:10px; color:#888890; letter-spacing:1.4px; text-transform:uppercase; text-align:right; }
+    .project-desc { margin:8px 0 0; color:#77777e; font-size:13px; line-height:1.6; max-width:430px; }
+    .about { background:#111114; color:white; }
+    .about .eyebrow, .about .section-sub { color:#a0a0a8; }
+    .about-layout { display:grid; grid-template-columns:1.1fr .9fr; gap:9vw; align-items:start; }
+    .about h2 { font-size:clamp(42px,6vw,82px); max-width:720px; }
+    .about-copy { color:#b8b8c0; font-size:17px; line-height:1.8; max-width:470px; padding-top:20px; }
+    .about-copy strong { color:#fff; font-weight:600; }
+    .skills { display:flex; flex-wrap:wrap; gap:9px; margin-top:28px; }
+    .skill { border:1px solid #44444b; border-radius:999px; padding:10px 14px; color:#dddde2; font-size:12px; }
+    .services { background:#e9e9ed; }
+    .service-list { border-top:1px solid var(--line); }
+    .service { display:grid; grid-template-columns:70px 1fr auto; align-items:center; gap:22px; padding:25px 0; border-bottom:1px solid var(--line); }
+    .service-num { color:#92929a; font-size:12px; }
+    .service h3 { margin:0; font-size:clamp(21px,3vw,34px); letter-spacing:-1px; font-weight:620; }
+    .service p { margin:5px 0 0; color:#77777e; font-size:13px; }
+    .service-arrow { font-size:23px; color:#77777e; }
+    .contact { text-align:center; padding-top:130px; padding-bottom:130px; }
+    .contact h2 { max-width:900px; margin:18px auto 24px; font-size:clamp(48px,8vw,105px); letter-spacing:-.08em; }
+    .contact p { color:#707078; font-size:16px; margin:0 auto 30px; }
+    .footer { padding:26px max(6vw,24px); display:flex; justify-content:space-between; gap:20px; border-top:1px solid var(--line); color:#77777e; font-size:12px; }
+    .footer-links { display:flex; gap:22px; }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    @media (prefers-reduced-motion: reduce) { html{scroll-behavior:auto} *,*::before,*::after{transition:none!important;animation:none!important} .reveal{opacity:1;transform:none} }
+    @media (max-width:720px) {
+      .nav { height:60px; } .menu-btn { display:block; }
+      .nav-links { display:none; position:absolute; top:60px; left:0; right:0; padding:20px 24px 25px; background:rgba(245,245,247,.98); flex-direction:column; align-items:flex-start; gap:20px; border-bottom:1px solid var(--line); }
+      .nav-links.open { display:flex; }
+      .hero { min-height:690px; padding-top:90px; }
+      .hero-bottom, .section-head { align-items:flex-start; flex-direction:column; }
+      .hero-note { display:none; }
+      .section { padding-top:75px; padding-bottom:75px; }
+      .project-grid { grid-template-columns:1fr; gap:38px; }
+      .project:nth-child(even) { margin-top:0; }
+      .about-layout { grid-template-columns:1fr; gap:10px; }
+      .service { grid-template-columns:35px 1fr auto; gap:12px; }
+      .service p { max-width:250px; }
+      .footer { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Solanki Rutik home">RUTIK.</a>
+    <button class="menu-btn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Independent video editor · Vadodara, India</div>
+        <h1>Making visuals<br><span>mean something.</span></h1>
+        <div class="intro">I’m Solanki Rutik — a video editor focused on cinematic storytelling, music visuals and content that holds attention.</div>
+      </div>
+      <div class="hero-bottom">
+        <a class="pill-link" href="#work">Explore selected work <span class="arrow">↘</span></a>
+        <div class="hero-note">Edit with intention. Tell it with feeling.</div>
+      </div>
+    </section>
+
+    <section class="section work" id="work">
+      <div class="section-head reveal">
+        <div><div class="eyebrow">01 / Selected work</div><h2>Frames in focus.</h2></div>
+        <p class="section-sub">A selection of editing projects and creative studies. Each project is presented with its role and format.</p>
+      </div>
+      <div class="project-grid">
+        <article class="project reveal">
+          <a class="project-visual arrival" href="assets/the-arrival.mp4" target="_blank" aria-label="Open The Arrival video">
+            <div class="visual-label">THE ARRIVAL</div><span class="play">▶</span>
+          </a>
+          <div class="project-meta"><div class="project-title">The Arrival</div><div class="project-type">Music visual · Concept</div></div>
+          <p class="project-desc">A dark, premium artist teaser built around tension, atmosphere and a hero reveal.</p>
+        </article>
+        <article class="project reveal">
+          <a class="project-visual auto" href="assets/automotive-film.mp4" target="_blank" aria-label="Open automotive film">
+            <div class="visual-label">AUTOMOTIVE FILM</div><span class="play">▶</span>
+          </a>
+          <div class="project-meta"><div class="project-title">Automotive Film</div><div class="project-type">Commercial · Concept</div></div>
+          <p class="project-desc">A polished vehicle film focusing on movement, detail shots and sound-led pacing.</p>
+        </article>
+        <article class="project reveal">
+          <a class="project-visual doc" href="assets/documentary-cut.mp4" target="_blank" aria-label="Open documentary cut">
+            <div class="visual-label">STORIES OF INDIA</div><span class="play">▶</span>
+          </a>
+          <div class="project-meta"><div class="project-title">Stories of India</div><div class="project-type">Documentary · Concept</div></div>
+          <p class="project-desc">A visual storytelling study combining voiceover, footage, pacing and atmosphere.</p>
+        </article>
+        <article class="project reveal">
+          <a class="project-visual social" href="assets/social-reel.mp4" target="_blank" aria-label="Open social reel">
+            <div class="visual-label">SOCIAL CUT</div><span class="play">▶</span>
+          </a>
+          <div class="project-meta"><div class="project-title">Social Cut</div><div class="project-type">Short-form · Concept</div></div>
+          <p class="project-desc">A vertical edit designed for fast hooks, clean rhythm and mobile-first viewing.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="about-layout">
+        <div class="reveal"><div class="eyebrow">02 / A little about me</div><h2>Good editing is felt before it’s noticed.</h2></div>
+        <div class="about-copy reveal">
+          I’m <strong>Solanki Rutik</strong>, a video editor from Vadodara, Gujarat. I work across short-form content, cinematic edits, promotional videos and visual storytelling.
+          <br><br>My approach is simple: understand the story, find the rhythm, shape the emotion, and make every frame earn its place.
+          <div class="skills">
+            <span class="skill">Premiere Pro</span><span class="skill">After Effects</span><span class="skill">Photoshop</span><span class="skill">Motion Graphics</span><span class="skill">Color Grading</span><span class="skill">Sound Design</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services" id="services">
+      <div class="section-head reveal">
+        <div><div class="eyebrow">03 / What I do</div><h2>From raw footage<br>to final feeling.</h2></div>
+        <p class="section-sub">Flexible editing support for artists, creators and brands.</p>
+      </div>
+      <div class="service-list">
+        <div class="service reveal"><div class="service-num">01</div><div><h3>Music & artist visuals</h3><p>Teasers, promos, performance edits and music-led storytelling.</p></div><div class="service-arrow">↗</div></div>
+        <div class="service reveal"><div class="service-num">02</div><div><h3>Reels & short-form content</h3><p>Instagram Reels, YouTube Shorts and social-first edits.</p></div><div class="service-arrow">↗</div></div>
+        <div class="service reveal"><div class="service-num">03</div><div><h3>Commercial & promotional films</h3><p>Product, automotive, business and brand videos.</p></div><div class="service-arrow">↗</div></div>
+        <div class="service reveal"><div class="service-num">04</div><div><h3>Documentary storytelling</h3><p>Voiceover-led edits, visual research and narrative pacing.</p></div><div class="service-arrow">↗</div></div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="eyebrow">04 / Have a project in mind?</div>
+      <h2>Let’s make<br>something memorable.</h2>
+      <p>For collaborations, editing projects and creative opportunities.</p>
+      <a class="pill-link" href="mailto:YOUR_EMAIL@example.com">Get in touch <span class="arrow">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© <span id="year"></span> Solanki Rutik. Made with intention.</div>
+    <div class="footer-links"><a href="https://www.instagram.com/rxtik.exe/" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.instagram.com/visualz_rdx/" target="_blank" rel="noreferrer">Visual work</a><a href="#top">Back to top ↑</a></div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuButton = document.querySelector('.menu-btn');
+    const nav = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.textContent = isOpen ? '×' : '☰';
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open'); menuButton.setAttribute('aria-expanded','false'); menuButton.textContent='☰';
+    }));
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
